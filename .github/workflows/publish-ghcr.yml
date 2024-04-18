@@ -17,3 +17,8 @@ jobs:
                 docker login --username aublwill --password ${{secrets.ACCESS_TOKEN}} ghcr.io
                 docker build -t ghcr.io/aublwill/arithmetic-service:latest --file Dockerfile .  
                 docker push ghcr.io/aublwill/arithmetic-service:latest 
+            - name: Publish the image to azure
+              run: |
+                docker login --username practicum16 --password ${{secrets.AZURE_CONTAINER_REGISTRY}} practicum16.azurecr.io
+                docker tag ghcr.io/aublwill/arithmetic-service:1   practicum16.azurecr.io/arithmetic-service:1
+                docker push practicum16.azurecr.io/arithmetic-service:1
